@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ "$GIT_VERSIONING_HOOK" = "true" ]; then
+    exit 0
+fi
+node .claude/git-hook-version.js
