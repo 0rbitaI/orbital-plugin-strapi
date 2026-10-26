@@ -1,6 +1,6 @@
 {
   "name": "@orbital/strapi-plugin-news",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Orbital blog news for the Strapi admin homepage",
   "license": "MIT",
   "author": "Orbital",

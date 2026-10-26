@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] — 2026-10-26
+### Changed
+- use absolute Orbital logo URL in readme
+
 ## [1.1.0] — 2026-10-26
 ### Added
 - publish reusable Orbital News plugin for Strapi

@@ -1,4 +1,4 @@
-<a href="https://orbital.company/"><img src="assets/orbital.svg" alt="Orbital" width="221"></a>
+<a href="https://orbital.company/"><img src="https://orbital.company/images/logo.svg" alt="Orbital" width="60"></a>
 
 # Orbital News
 
@@ -123,7 +123,7 @@ Do not edit the version or changelog manually while the hook is active. Push rem
 
 ## Assets and licenses
 
-Plugin code is MIT licensed; see [LICENSE](LICENSE). The README uses the same Orbital logo prepared for the WordPress plugin. The Orbital logo remains Orbital's trademark.
+Plugin code is MIT licensed; see [LICENSE](LICENSE). The README uses the official absolute logo URL, matching the WordPress plugin. The Orbital logo remains Orbital's trademark.
 
 Montserrat is bundled under SIL Open Font License 1.1; see [OFL.txt](admin/src/assets/OFL.txt). Runtime logo assets are packaged locally, with no external asset hosting dependency.
 
