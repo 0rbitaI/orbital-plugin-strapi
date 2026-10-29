@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.4] — 2026-10-29
+### Changed
+- streamline news widget layout to match native entries table
+
 ## [1.1.3] — 2026-10-29
 ### Changed
 - update package scope to @0rb1tal for npm publication
