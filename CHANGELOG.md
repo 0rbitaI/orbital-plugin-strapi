@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] — 2026-10-29
+### Changed
+- prepare package for npm publication and remove bundled font
+
 ## [1.1.1] — 2026-10-26
 ### Changed
 - use absolute Orbital logo URL in readme

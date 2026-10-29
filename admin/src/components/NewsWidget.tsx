@@ -19,11 +19,11 @@ export default function NewsWidget() {
     return () => { mounted = false; controller.abort(); };
   }, [get]);
   return <Flex direction="column" alignItems="stretch" gap={4} aria-label="Artigos do blog da Orbital" aria-busy={!data && !error}>
-    <Flex gap={3}>
+    {/* <Flex gap={3}> */}
       {/* Keep the logo bundled while temporarily hiding it from the widget. */}
-      <img src={logo} width="24" height="24" alt="" hidden />
-      <Typography tag="h3" variant="delta" fontWeight="bold" textColor="neutral800">Orbital</Typography>
-    </Flex>
+      {/* <img src={logo} width="24" height="24" alt="" hidden /> */}
+      {/* <Typography tag="h3" variant="delta" fontWeight="bold" textColor="neutral800">Orbital</Typography> */}
+    {/* </Flex> */}
     {!data && !error && <Widget.Loading>Carregando artigos…</Widget.Loading>}
     {(error || data?.unavailable) && <Box role="status"><Widget.Error>Não foi possível carregar os artigos agora.</Widget.Error></Box>}
     {data && !data.unavailable && data.articles.length === 0 && <Widget.NoData>Nenhum artigo publicado.</Widget.NoData>}

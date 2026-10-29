@@ -1,57 +1,117 @@
-<a href="https://orbital.company/"><img src="https://orbital.company/images/logo.svg" alt="Orbital" width="60"></a>
+<a href="https://orbital.company/"><img src="https://orbital.company/images/logo.svg" alt="Orbital" height="60"></a>
 
 # Orbital News
 
+[![npm version](https://img.shields.io/npm/v/@orbital/strapi-plugin-news.svg)](https://www.npmjs.com/package/@orbital/strapi-plugin-news)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Strapi 5](https://img.shields.io/badge/Strapi-^5.60.0-4945ff.svg)](https://strapi.io)
+
 Strapi admin homepage widget displaying the four latest articles from the Orbital blog. Built with TypeScript and the native Strapi Design System.
+
+## Features
+
+- **Native UI**: seamlessly blends into the Strapi 5 Admin homepage using Strapi Design System 2.x.
+- **Secure by design**: strictly server-side fetched and HTML-sanitized (zero client-side external requests or XSS vectors).
+- **Intelligent caching**: 6-hour in-memory cache with stale-while-revalidate and resilient offline fallback for up to 7 days.
+- **Automated campaign attribution**: attaches normalized UTM tags per project.
+- **Zero bloat**: lightweight footprint with no tracking pixels or client credentials required.
 
 ## Requirements
 
-- Strapi **5.13.0+**, below 6.0.0; validated with **5.59.0**.
+- Strapi **5.x**, validated with **5.60.0**.
 - React 18 and the Strapi Design System 2.x.
-- A Node.js version supported by your Strapi installation, and Yarn for development.
+- A Node.js version supported by your Strapi installation (Node >= 20.0.0).
 
 ## Installation
 
-Clone this repository, install dependencies and build the plugin:
+Install the package into your Strapi project:
 
 ```sh
-git clone git@github.com:0rbitaI/orbital-plugin-strapi.git
-cd orbital-plugin-strapi
-yarn
-yarn build
-yarn pack --filename /tmp/orbital-strapi-plugin-news.tgz
+yarn add @orbital/strapi-plugin-news
+# or
+npm install @orbital/strapi-plugin-news
 ```
 
-In the destination Strapi project:
+## Configuration
 
-```sh
-yarn add /tmp/orbital-strapi-plugin-news.tgz
-```
+### 1. Environment Variable
 
-Configure the plugin on the server, merging with your existing `config/plugins.js`:
-
-```js
-module.exports = ({ env }) => ({
-  'orbital-news': {
-    enabled: true,
-    config: { projectId: env('ORBITAL_NEWS_PROJECT_ID') },
-  },
-});
-```
-
-Set a client project identifier in the Strapi server environment:
+Define your project identifier in your Strapi server `.env`:
 
 ```dotenv
 ORBITAL_NEWS_PROJECT_ID=my-client
 ```
 
-Then run `yarn build` in the Strapi project and restart it. The widget is registered on the homepage through `app.widgets.register`. Users with a saved layout may need **Add Widget → Orbital News**.
+> [!IMPORTANT]
+> `ORBITAL_NEWS_PROJECT_ID` is required. The plugin validates this slug on startup and uses it for UTM tracking (`utm_source`). It must contain letters or numbers (up to 80 characters).
 
-The package is named `@orbital/strapi-plugin-news`; its Strapi ID is `orbital-news`. The repository is the distribution source; no npm registry publication is required.
+### 2. Enable the Plugin
+
+Enable and configure the plugin in your Strapi project's `config/plugins.ts` (or `config/plugins.js`):
+
+**TypeScript (`config/plugins.ts`):**
+
+```ts
+export default ({ env }) => ({
+  "orbital-news": {
+    enabled: true,
+    config: {
+      projectId: env("ORBITAL_NEWS_PROJECT_ID"),
+    },
+  },
+});
+```
+
+**JavaScript (`config/plugins.js`):**
+
+```js
+module.exports = ({ env }) => ({
+  "orbital-news": {
+    enabled: true,
+    config: {
+      projectId: env("ORBITAL_NEWS_PROJECT_ID"),
+    },
+  },
+});
+```
+
+### 3. Build & Restart
+
+Rebuild your Strapi admin panel and start the server:
+
+```sh
+yarn build
+yarn develop
+```
+
+The widget registers automatically on the Strapi Admin homepage. If you have previously customized your homepage layout, click **Add Widget** in the upper-right corner of the admin homepage and select **Orbital News**.
 
 ### Local development inside a Strapi project
 
-You can instead copy this repository to `src/plugins/orbital-news`, excluding `.git`, `node_modules` and generated files, and add `resolve: './src/plugins/orbital-news'` alongside `enabled` and `config`. Build the plugin before the host admin build or development startup:
+To develop or test changes locally inside a host Strapi project:
+
+```sh
+git clone https://github.com/0rbitaI/orbital-plugin-strapi.git src/plugins/orbital-news
+cd src/plugins/orbital-news
+yarn
+yarn build
+```
+
+Then configure `resolve` in `config/plugins.ts` (or `plugins.js`):
+
+```ts
+export default ({ env }) => ({
+  "orbital-news": {
+    enabled: true,
+    resolve: "./src/plugins/orbital-news",
+    config: {
+      projectId: env("ORBITAL_NEWS_PROJECT_ID"),
+    },
+  },
+});
+```
+
+Build the plugin before the host admin build or development startup:
 
 ```sh
 yarn --cwd src/plugins/orbital-news build
@@ -70,7 +130,7 @@ The plugin does not set the client's homepage order or modify other widgets. Tha
 - Blog failures remain local to the widget and do not block the admin panel or server startup. Native loading, empty and error states are provided. Cached fallback articles show a stale notice.
 - Titles and short excerpts are plain text, with HTML removed and entities decoded. Dates are rendered in `pt-BR`, in the `America/Sao_Paulo` timezone.
 - Links open in a new tab with `rel="noopener noreferrer"`. Origin and article URLs are restricted to the fixed blog origin; browser parameters cannot override the source, and redirects are rejected.
-- Uses native Strapi typography, spacing, links and theme colors. The widget logo is temporarily hidden through the native `hidden` attribute, while its markup and bundled asset remain available. Montserrat and its license are retained in the package but the widget uses Strapi's native font.
+- Uses native Strapi typography, spacing, links and theme colors from the Strapi Design System.
 - Requests are aborted on unmount; server timers are cleared and active origin requests are aborted on shutdown.
 
 No WordPress credentials, tracking pixels or external browser requests are required. The blog receives the server's IP as part of the backend HTTP request. Customer and admin information is not sent in that request.
@@ -79,12 +139,12 @@ No WordPress credentials, tracking pixels or external browser requests are requi
 
 All article and general blog links preserve existing query parameters and fragments, replacing these campaign values:
 
-| Parameter | Value |
-| --- | --- |
-| `utm_source` | Server-configured client project identifier, normalized to a slug |
-| `utm_medium` | `strapi_dashboard` |
-| `utm_campaign` | `orbital_blog` |
-| `utm_content` | `article` or `view_all` |
+| Parameter      | Value                                                             |
+| -------------- | ----------------------------------------------------------------- |
+| `utm_source`   | Server-configured client project identifier, normalized to a slug |
+| `utm_medium`   | `strapi_dashboard`                                                |
+| `utm_campaign` | `orbital_blog`                                                    |
+| `utm_content`  | `article` or `view_all`                                           |
 
 For example, `São Paulo / Client` becomes `sao-paulo-client`. Identifiers are limited to 80 ASCII characters and must contain letters or numbers. Configuration is server-only. In Strapi, this identifier replaces the active theme name used by the WordPress plugin. No GTM configuration is changed.
 
@@ -125,17 +185,15 @@ Do not edit the version or changelog manually while the hook is active. Push rem
 
 Plugin code is MIT licensed; see [LICENSE](LICENSE). The README uses the official absolute logo URL, matching the WordPress plugin. The Orbital logo remains Orbital's trademark.
 
-Montserrat is bundled under SIL Open Font License 1.1; see [OFL.txt](admin/src/assets/OFL.txt). Runtime logo assets are packaged locally, with no external asset hosting dependency.
+Runtime logo assets are packaged locally, with no external asset hosting dependency.
 
 ## References
 
 - [Strapi homepage widget API](https://docs.strapi.io/cms/admin-panel-customization/homepage)
 - [Strapi plugin Server API](https://docs.strapi.io/cms/plugins-development/server-api)
-- [WordPress posts API](https://developer.wordpress.org/rest-api/reference/posts/)
 
 ## Orbital
 
 - [Website](https://orbital.company/)
 - [Blog](https://blog.orbital.company/)
 - [Careers](https://orbital.company/vagas)
-- [WordPress plugin](https://github.com/0rbitaI/orbital-plugin-wordpress)

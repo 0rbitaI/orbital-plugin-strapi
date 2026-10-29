@@ -1,6 +1,6 @@
 {
   "name": "@orbital/strapi-plugin-news",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Orbital blog news for the Strapi admin homepage",
   "license": "MIT",
   "author": "Orbital",
@@ -29,14 +29,15 @@
     "dist",
     "admin/src",
     "server/src",
-    "scripts",
-    "tsconfig.json",
     "strapi-server.js",
     "README.md",
     "LICENSE",
     "CHANGELOG.md",
     "assets"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node --test tests/news.test.cjs tests/versioning.test.cjs",
