@@ -2,7 +2,7 @@
 
 # Orbital News
 
-[![npm version](https://img.shields.io/npm/v/@orbital/strapi-plugin-news.svg)](https://www.npmjs.com/package/@orbital/strapi-plugin-news)
+[![npm version](https://img.shields.io/npm/v/@0rb1tal/strapi-plugin-news.svg)](https://www.npmjs.com/package/@0rb1tal/strapi-plugin-news)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Strapi 5](https://img.shields.io/badge/Strapi-^5.60.0-4945ff.svg)](https://strapi.io)
 
@@ -27,9 +27,9 @@ Strapi admin homepage widget displaying the four latest articles from the Orbita
 Install the package into your Strapi project:
 
 ```sh
-yarn add @orbital/strapi-plugin-news
+yarn add @0rb1tal/strapi-plugin-news
 # or
-npm install @orbital/strapi-plugin-news
+npm install @0rb1tal/strapi-plugin-news
 ```
 
 ## Configuration

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.3] — 2026-10-29
+### Changed
+- update package scope to @0rb1tal for npm publication
+
 ## [1.1.2] — 2026-10-29
 ### Changed
 - prepare package for npm publication and remove bundled font
